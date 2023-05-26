@@ -1,0 +1,149 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+.ppBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.pimage img{
+    width: 100%;
+}
+.formu{
+    margin-right: 20px;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.maga .content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    font-size: 40px;
+    color: #344b42;
+}
+.maga main{
+    height: 600px;
+    width: 100%;
+}
+.modal{
+    position: fixed;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.185);
+    backdrop-filter: blur(1px);
+}
+.modal .contenu_modal{
+    min-height: 670px;
+    min-width: 630px;
+    background-color: #232c3b;
+    border-radius: 5px;
+    position: relative;
+}
+.modal .contenu_modal .close{
+    position: absolute;
+    color: #56d3a5;
+    font-weight: 900;
+    font-size: 25px;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    border: 1px solid #56d3a5;
+}
+.modal .contenu_modal .tet{
+    height: 110px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.modal .contenu_modal .tet .pers{
+    font-size: 45px;
+    color: #56d3a5;
+}
+.modal .contenu_modal .tet span{
+    color: #fff;
+    font-weight: 700;
+}
+.modal .contenu_modal .corps{
+    width: 100%;
+    height: 510px;
+    background-color: #fff;
+}
+.modal .contenu_modal .corps .form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px 100px;
+    padding: 20px;
+}
+
+.modal .contenu_modal .corps .form .input{
+    width: 80%;
+    border-bottom: 1px solid silver;
+    font-size: 19px;
+}
+.modal .contenu_modal .corps .form .iform{
+    color: #232c3b;
+    font-size: 40px;
+}
+.modal .contenu_modal .corps .images{
+    padding: 20px;
+    width: 100%;
+}  
+.modal .contenu_modal .corps .images span{
+    padding: 7px 20px;
+    background: #1b308b;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+.modal .contenu_modal .corps .images input{
+    display: none;
+}
+.modal .contenu_modal .corps .images .image{
+    width: 610px;
+    border: 1px solid silver;
+    height: 160px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: scroll;
+    padding: 5px;
+}
+.modal .contenu_modal .corps .images .image img{
+    width: 150px;
+    height: 130px;
+    margin-left: 3px;
+}
+
+.modal .contenu_modal .corps .btns{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 0px 20px;
+}
+.modal .contenu_modal .corps .btns span{
+    background: #1b308b;
+    padding: 9px 30px;
+    margin: 0 5px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}

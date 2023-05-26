@@ -1,0 +1,23 @@
+nav {
+    text-align: center;
+    vertical-align: bottom;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 10%;
+}
+
+nav a {
+    color: #232c3b;
+    text-decoration: none;
+}
+.navi{
+    width: 30px;
+    height: 30px;
+    margin-right: .3rem;
+    margin-bottom: .3rem;
+    vertical-align: middle;
+}

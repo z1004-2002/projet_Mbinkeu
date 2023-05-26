@@ -1,0 +1,82 @@
+.home{
+    height: 100vh;
+    width: 100vw;
+    background-image: url("./../assets/img/back.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.home main{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.507);
+    backdrop-filter: blur(1px);
+}
+.home main .box{
+    background: #7ba898;
+    padding: 20px;
+    min-height: 400px;
+    min-width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+.home main .box .header{
+    padding: 30PX;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, serif;
+    color: #232c3b;
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.home main .box .header .icon{
+    font-size: 60px;
+}
+.home main .bod .form {
+    display: flex;
+    flex-direction: column;
+}
+.home main .bod .form .text-field{
+    padding: 14px 20px;
+}
+.home main .bod .form .text-field input{
+    width: 100%;
+    padding: 0 5px;
+    outline: none;
+    height: 30px;
+    background: #7ba898;
+    border: none;
+    font-size: 19px;
+    border-bottom: 2px solid #232c3b;
+    transition: 0.5s;
+}
+.home main .bod .form .text-field input:focus{
+    border-bottom: 2px solid whitesmoke;
+}
+.home main .bod .form .btns{
+    margin: 35px 0px 0px 0px;
+
+}
+.home main .bod .form .btns .btn{
+    padding: 10px 30px;
+    transition: 0.3s;
+    font-weight: bold;
+    border: 2px solid transparent;
+    color: #7ba898;
+    background: #232c3b;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 0px 10px;
+}
+.home main .bod .form .btns .btn:hover{
+    border: 2px solid #232c3b;
+    color: #232c3b;
+    background: transparent;
+}
