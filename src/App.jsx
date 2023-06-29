@@ -11,8 +11,10 @@ import MagCatPro from "./pages/magasinier/MagCatPro";
 import MagProduit from "./pages/magasinier/MagProduit";
 import MagStock from "./pages/magasinier/MagStock";
 
+//Routes
+
 function App() {
-  return (
+  return ( 
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} ></Route>
