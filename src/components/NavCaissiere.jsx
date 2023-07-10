@@ -10,10 +10,10 @@ export default function Nav({caiss}) {
   return (
     <nav>
       <ul>
-        <li><NavLink to={"/caissiere/"+caiss+"/facturation"}><img class="navi" src={acceuil} />Facturation</NavLink></li>
-        <li><NavLink to={"/caissiere/"+caiss+"/categorie/1"}><img class="navi" src={categories} />Catégories</NavLink></li>
-        <li><NavLink to={"/caissiere/"+caiss+"/produit/1"}><img class="navi" src={products} />Produits</NavLink></li>
-        <li><NavLink to="#"><img class="navi" src={about} />A propos</NavLink></li>
+        <li><NavLink to={"/caissiere/"+caiss+"/facturation"}><img className="navi" alt='' src={acceuil} />Facturation</NavLink></li>
+        <li><NavLink to={"/caissiere/"+caiss+"/categorie/1"}><img className="navi" alt='' src={categories} />Catégories</NavLink></li>
+        <li><NavLink to={"/caissiere/"+caiss+"/produit/1"}><img className="navi" alt='' src={products} />Produits</NavLink></li>
+        <li><NavLink to="#"><img className="navi" src={about} alt='' />A propos</NavLink></li>
       </ul>
     </nav>
   )

@@ -20,12 +20,12 @@ export default function BoxCat({ idCat, nomCat }) {
 
   }, [idCat])
   return (
-    <div class="ppBox">
-      <div class="num"><span>{nomCat}</span></div>
+    <div className="ppBox">
+      <div className="num"><span>{nomCat}</span></div>
       <hr />
-      <div class="qte"><span>{nombre}</span>
+      <div className="qte"><span>{nombre}</span>
       <NavLink to={"/magasinier/"+id+"/produit/"+idCat+"/1"}>
-        <img class="ploupe" src={litsearch} />
+        <img className="ploupe" src={litsearch} alt='test'/>
       </NavLink>
       </div>
     </div>

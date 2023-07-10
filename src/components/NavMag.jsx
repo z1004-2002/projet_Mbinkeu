@@ -11,11 +11,11 @@ export default function NavMag({mag}) {
     return (
         <nav>
             <ul>
-                <li><NavLink to={"/magasinier/"+mag}><img class="navi" src={acceuil} />Accueil</NavLink></li>
-                <li><NavLink to={"/magasinier/"+mag+"/categorie/1"}><img class="navi" src={categories} />Catégories</NavLink></li>
-                <li><NavLink to={"/magasinier/"+mag+"/produit/1"}><img class="navi" src={products} />Produits</NavLink></li>
-                <li><NavLink to={"/magasinier/" +mag+ "/stock"}><img class="navi" src={stock} />Stock</NavLink></li>
-                <li><NavLink to="#"><img class="navi" src={about} />A propos</NavLink></li>
+                <li><NavLink to={"/magasinier/"+mag}><img alt='test' className="navi" src={acceuil} />Accueil</NavLink></li>
+                <li><NavLink to={"/magasinier/"+mag+"/categorie/1"}><img alt='test' className="navi" src={categories} />Catégories</NavLink></li>
+                <li><NavLink to={"/magasinier/"+mag+"/produit/1"}><img alt='test' className="navi" src={products} />Produits</NavLink></li>
+                <li><NavLink to={"/magasinier/" +mag+ "/stock"}><img alt='test' className="navi" src={stock} />Stock</NavLink></li>
+                <li><NavLink to="#"><img className="navi" src={about} alt='test' />A propos</NavLink></li>
             </ul>
         </nav>
     )

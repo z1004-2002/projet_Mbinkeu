@@ -19,20 +19,20 @@ export default function Box({ number, quantity }) {
         if (a.length === 0) {
           setName(box)
         } else {
-          setName('https://boutiquebambinoshop/eshop/productImages/' + a[0].lienPhoto)
+          setName('https://boutiquebambino.shop/eshop/productImages/'+number+'/' + a[0].lienPhoto)
         }
       })
       .catch(error => console.log('error', error));
     SetCode(number.toString())
   }, [number])
   return (
-    <div class="ppBox">
-      <div class="num"><span>{
+    <div className="ppBox">
+      <div className="num"><span>{
         code[0] + code[1] + code[2] +
         '-' + code[3] + code[4] + code[5]}</span></div>
       
-        <div class="pimage"><img src={name} /></div>
-      <div class="qte"><span>{quantity}</span><img class="ploupe" src={litsearch} /></div>
+        <div className="pimage"><img alt='e' src={name} /></div>
+      <div className="qte"><span>{quantity}</span><img alt='z' className="ploupe" src={litsearch} /></div>
     </div>
   )
 }

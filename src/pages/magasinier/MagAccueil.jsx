@@ -11,7 +11,9 @@ export default function MagAccueil() {
       <main>
         <Nav mag="116" />
         <div className="content">
-          <span>Dashboard Magasinier</span>
+          <span>
+            Dashboard Magasinier
+          </span>
         </div>
       </main>
     </div>

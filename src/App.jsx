@@ -18,6 +18,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} ></Route>
+        
         <Route path="/caissiere/:id/produit/:num" element={<CaissiereProduit />} ></Route>
         <Route path="/caissiere/:id/produit/:idCat/:num" element={<CassiereCatPro />} ></Route>
         <Route path="/caissiere/:id/facturation" element={<CaissiereFacturation />} ></Route>

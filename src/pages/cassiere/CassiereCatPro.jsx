@@ -11,11 +11,15 @@ export default function CassiereCatPro() {
     const { id, idCat, num } = useParams()
     const [pages, setPages] = useState(1)
     const [nom, setNom] = useState("")
+    const [q,setQ] = useState(1)
 
     const [data, setData] = useState([])
     const navig = useNavigate()
 
     useEffect(() => {
+        let a = num-1
+        let r = a%5
+        setQ((a-r)/5)
 
         var requestOptions = {
             method: 'GET',
@@ -24,7 +28,9 @@ export default function CassiereCatPro() {
 
         fetch("http://localhost:4500/produit/nombre/" + idCat, requestOptions)
             .then(response => response.text())
-            .then(result => setPages(parseInt(result / 8) + 1))
+            .then(result => {
+                setPages(parseInt(result / 8) + 1)
+            })
             .catch(error => console.log('error', error));
 
         fetch("http://localhost:4500/categorie/" + idCat, requestOptions)
@@ -48,12 +54,12 @@ export default function CassiereCatPro() {
 
 
 
-    }, [num])
+    }, [num,idCat])
     return (
         <div className='body page'>
-            <Header name={'Sambo'} />
+            <Header />
             <main>
-                <Nav caiss="118" />
+                <Nav caiss={id} />
                 <div class="sam">
                     <div>
                         <span className='chemin'>Acceuil</span>
@@ -75,7 +81,7 @@ export default function CassiereCatPro() {
                         <input type="text" id="code" maxLength={7} placeholder="Qte" />
                         <input type="text" id="code" maxLength={7} placeholder="Code Fournisseur" />
                         <input type="text" id="code" maxLength={7} placeholder="Code du produit" />
-                        <button class="search"><img class="loupe" src={search} /></button>
+                        <button class="search"><img class="loupe" src={search} alt='test'/></button>
                     </div>
                 </div>
                 <div class="pBox">
@@ -90,7 +96,11 @@ export default function CassiereCatPro() {
                                 navig("/caissiere/" + id + "/produit/" + idCat + "/" + (num - 1))
                             }
                         }} href="#">&laquo;</span>
-                        <span class="active" href="#">{num}</span>
+                        {5*q+1<=pages && <NavLink to={`/caissiere/${id}/produit/${idCat}/${5*q+1}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+1}</NavLink>}
+                        {5*q+2<=pages && <NavLink to={`/caissiere/${id}/produit/${idCat}/${5*q+2}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+2}</NavLink>}
+                        {5*q+3<=pages && <NavLink to={`/caissiere/${id}/produit/${idCat}/${5*q+3}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+3}</NavLink>}
+                        {5*q+4<=pages && <NavLink to={`/caissiere/${id}/produit/${idCat}/${5*q+4}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+4}</NavLink>}
+                        {5*q+5<=pages && <NavLink to={`/caissiere/${id}/produit/${idCat}/${5*q+5}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+5}</NavLink>}
                         <span onClick={() => {
                             if (num < pages) {
                                 let a = num - 1 + 2

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import litsearch from './../assets/img/litsearch.png'
-import { useParams } from 'react-router-dom'
 
 export default function BoxCat({ idCat, nomCat }) {
   const [nombre, setNombre] = useState(0)
-  const { id } = useParams()
 
 
   useEffect(() => {
@@ -22,12 +20,12 @@ export default function BoxCat({ idCat, nomCat }) {
 
   }, [idCat])
   return (
-    <div class="ppBox">
-      <div class="num"><span>{nomCat}</span></div>
+    <div className="ppBox">
+      <div className="num"><span>{nomCat}</span></div>
       <hr />
-      <div class="qte"><span>{nombre}</span>
+      <div className="qte"><span>{nombre}</span>
 
-        <img class="ploupe" src={litsearch} />
+        <img className="ploupe" src={litsearch} alt='tes' />
       </div>
     </div>
   )

@@ -11,10 +11,15 @@ export default function CaissiereCategorie() {
 
   const { id, num } = useParams()
   const [pages, setPages] = useState(1)
+  const [q, setQ] = useState(1)
   const [data, setData] = useState([])
   const navig = useNavigate()
 
   useEffect(() => {
+    let a = num - 1
+    let r = a % 5
+    setQ((a - r) / 5)
+
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
@@ -43,12 +48,12 @@ export default function CaissiereCategorie() {
       .catch(error => console.log('error', error));
 
 
-  }, [num])
+  }, [num, id])
   return (
     <div className='body page'>
-      <Header name={'Sambo'} />
+      <Header />
       <main>
-        <Nav caiss="118" />
+        <Nav caiss={id} />
         <div class="sam">
           <div>
             <span className='chemin'>Acceuil</span>
@@ -63,7 +68,7 @@ export default function CaissiereCategorie() {
           </containt>
           <div className="formu">
             <input type="text" id="code" maxLength={7} placeholder="Nom Categorie" />
-            <button class="search"><img class="loupe" src={search} /></button>
+            <button class="search"><img alt='test' class="loupe" src={search} /></button>
           </div>
         </div>
         <div class="pBox">
@@ -78,14 +83,19 @@ export default function CaissiereCategorie() {
           <div className="nume">
             <span onClick={() => {
               if (num > 1) {
-                navig("/caissiere/"+id+"/categorie/"+(num-1))
+                navig("/caissiere/" + id + "/categorie/" + (num - 1))
               }
             }} href="#">&laquo;</span>
-            <span class="active" href="#">{num}</span>
+            {5*q+1<=pages && <NavLink to={`/caissiere/${id}/categorie/${5*q+1}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+1}</NavLink>}
+            {5*q+2<=pages && <NavLink to={`/caissiere/${id}/categorie/${5*q+2}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+2}</NavLink>}
+            {5*q+3<=pages && <NavLink to={`/caissiere/${id}/categorie/${5*q+3}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+3}</NavLink>}
+            {5*q+4<=pages && <NavLink to={`/caissiere/${id}/categorie/${5*q+4}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+4}</NavLink>}
+            {5*q+5<=pages && <NavLink to={`/caissiere/${id}/categorie/${5*q+5}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+5}</NavLink>}
+            
             <span onClick={() => {
               if (num < pages) {
                 let a = num - 1 + 2
-                navig("/caissiere/"+id+"/categorie/"+a)
+                navig("/caissiere/" + id + "/categorie/" + a)
               }
             }} href="#">&raquo;</span>
           </div>
