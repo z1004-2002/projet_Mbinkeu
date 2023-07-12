@@ -6,8 +6,6 @@ export default function BoxCat({ idCat, nomCat }) {
 
 
   useEffect(() => {
-
-    console.log(idCat);
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'

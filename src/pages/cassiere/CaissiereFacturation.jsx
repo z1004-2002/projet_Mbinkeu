@@ -23,13 +23,33 @@ export default function CaissiereFacturation() {
     tva: 0,
     produits: []
   })
-  const [produit, setProduit] = useState([])
+  const [produits, setProduits] = useState([])
   const [code, setCode] = useState("")
   const [photos, setPhotos] = useState([])
-  const [qte, setQte] = useState("1")
-  const [stock,setStock] = useState('ND')
+  const [qte, setQte] = useState(1)
+  const [stock, setStock] = useState('ND')
+  const [produit, setProduit] = useState({
+    codePro: 0,
+    prix: 0,
+    qte: 1,
+  })
+  const [net, setNet] = useState("ND")
+  const [total, setTotal] = useState("ND")
+  const [relicat, setRelicat] = useState("ND")
 
-  const ChangeCode = () => {
+  const calcul = () => {
+    let tot = 0
+    console.log(produits);
+    for (let i = 0; i < produits.length; i++) {
+      tot = tot + parseInt(produits[i].qte) * parseInt(produits[i].prix)
+    }
+    setTotal(tot)
+  }
+
+  const test = () => {
+    
+  }
+  const chargeCode = () => {
     if (code.length === 7) {
       var requestOptions = {
         method: 'GET',
@@ -40,14 +60,19 @@ export default function CaissiereFacturation() {
         .then(response => response.text())
         .then(result => {
           let a = JSON.parse(result)
+          setProduit({
+            codePro: a.codePro,
+            prix: a.prix,
+            qte: 1,
+          })
+          setStock(a.qte)
           fetch("http://localhost:4500/photo/" + a.codePro, requestOptions)
             .then(response => response.text())
             .then(result => {
               let b = JSON.parse(result)
-              console.log(b);
               let c = []
               for (let i = 0; i < b.length; i++) {
-                c.push('http://boutiquebambino.shop/eshop/productImages/'+a.codePro+'/'+b[i].lienPhoto)
+                c.push('http://boutiquebambino.shop/eshop/productImages/' + a.codePro + '/' + b[i].lienPhoto)
               }
               setPhotos(c)
             })
@@ -57,9 +82,50 @@ export default function CaissiereFacturation() {
     }
   }
 
+  const addToFact = () => {
+    let pr = produit
+    let test = false;
+    let index = 0;
+    for (let i = 0; i < produits.length; i++) {
+      if (produits[i].codePro === produit.codePro) {
+        test = true;
+        index = i;
+      }
+    }
+    if (test) {
+      let te = produits
+      setProduits([])
+      let aux = parseInt(te[index].qte) + parseInt(qte)
+      te[index].qte = aux
+      setProduits(te)
+      let aux2 = []
+      for (let i = 0; i < te.length; i++) {
+        aux2.push(te[i])
+      }
+      setProduits(aux2)
+    } else {
+      let te = produits
+      let aux2 = []
+      pr.qte = qte
+      for (let i = 0; i < te.length; i++) {
+        aux2.push(te[i])
+      }
+      aux2.push(pr)
+      setProduits(aux2)
+    }
+    calcul()
+  }
+  function separateur(nombre) {
+    nombre = nombre.toString();
+    var partie1 = nombre.slice(0, 3);
+    var partie2 = nombre.slice(3)
+    return partie1 + '-' + partie2;
+  }
+
+
   useEffect(() => {
     console.log(id);
-  }, [id])
+  }, [id, produits, produit])
 
   return (
     <div className='body page facturation'>
@@ -81,34 +147,85 @@ export default function CaissiereFacturation() {
               <span>
                 <ModeEditOutlineIcon />
               </span>
-              <input type="text" value={code} onKeyDown={()=>ChangeCode()} onChange={(e) => setCode(e.target.value)} placeholder='Code Produit' />
+              <input type="text" value={code} onKeyDown={() => chargeCode()} onChange={(e) => setCode(e.target.value)} placeholder='Code Produit' />
             </div>
             <div className="textfield0">
               Quantité
-              <input type="text" value={qte} onChange={(e)=>setQte(e.target.value)}/>
+              <input type="number" value={qte} onChange={(e) => setQte(e.target.value)} />
             </div>
             <div className="textfield">
               <span>
                 <RemoveIcon />
               </span>
               <p>
-                <input type="text" placeholder='Remise Max=40.0' /> %
+                <input type="number"
+                  onKeyUp={() => {
+                    let a = total - facture.remise * total / 100
+                    setNet(a)
+                  }}
+                  value={facture.remise}
+                  onChange={(e) => {
+                    setFacture({ ...facture, remise: e.target.value })
+                  }} placeholder='Remise Max=40.0' /> %
               </p>
             </div>
             <div className="textfield01">
               Quantité en Stock:
-              <span>ND</span>
-              <AddIcon className='icon'/>
+              <span>{stock}</span>
+              <AddIcon className='icon' onClick={() => addToFact()} />
             </div>
           </div>
           <div className="right">
             <div className="images">
-                {photos.map((lien,idx)=><img src={lien} key={idx} alt='r'/>)}
+              {photos.map((lien, idx) => <img src={lien} key={idx} alt='r' />)}
             </div>
           </div>
         </div>
         <hr />
-        <div className="body"></div>
+        <div className="body">
+          <div className="top">
+            <div className="total">Total (Fcfa): <span className='green'>{total}</span></div>
+            <div className="net">Net A Payer (Fcfa): <span className='green'>{net}</span></div>
+            <div className="reliq">
+              <input type="text" name="reliq" id="reliq" />
+              <span>
+                Reliquat : <span className='green'>{relicat}</span>
+              </span>
+            </div>
+          </div>
+          <div className="bottom">
+            <table>
+              <thead>
+                <tr>
+                  <th>Code Produit</th>
+                  <th>Prix Unitaire</th>
+                  <th>Quantité</th>
+                  <th>Sous-Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {produits.map((prod, idx) => {
+                  return <tr key={idx}>
+                    <td>{separateur(prod.codePro)} </td>
+                    <td>{prod.prix} FCFA</td>
+                    <td>{prod.qte}</td>
+                    <td>{prod.prix * prod.qte} FCFA</td>
+                  </tr>
+                })
+                }
+              </tbody>
+            </table>
+          </div>
+          <div className="end">
+            <span className="rec">Recette Journalière</span>
+            <div className="after">
+              <span className="sup">Supprimer</span>
+              <span className="annu">Annuler</span>
+              <span className='aper'>Aperçu</span>
+              <span className='val'>Valider</span>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   )

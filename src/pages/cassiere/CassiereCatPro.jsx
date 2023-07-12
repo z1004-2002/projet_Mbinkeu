@@ -60,7 +60,7 @@ export default function CassiereCatPro() {
             <Header />
             <main>
                 <Nav caiss={id} />
-                <div class="sam">
+                <div className="sam">
                     <div>
                         <span className='chemin'>Acceuil</span>
                         <span className='chemin'>
@@ -70,26 +70,26 @@ export default function CassiereCatPro() {
                         </span>
                         <span className='chemin'>Produits</span>
                     </div>
-                    <div class="toutcat"><span>Catégories {nom}</span></div>
+                    <div className="toutcat"><span>Catégories {nom}</span></div>
                 </div>
                 <div className='searchs'>
                     <containt>
-                        <button class="imprim">Imprimer</button>
-                        <button class="refresh">Rafraichir</button>
+                        <button className="imprim">Imprimer</button>
+                        <button className="refresh">Rafraichir</button>
                     </containt>
                     <div className="formu">
                         <input type="text" id="code" maxLength={7} placeholder="Qte" />
                         <input type="text" id="code" maxLength={7} placeholder="Code Fournisseur" />
                         <input type="text" id="code" maxLength={7} placeholder="Code du produit" />
-                        <button class="search"><img class="loupe" src={search} alt='test'/></button>
+                        <button className="search"><img className="loupe" src={search} alt='test'/></button>
                     </div>
                 </div>
-                <div class="pBox">
+                <div className="pBox">
 
                     {data.map((d, idx) => (<Box key={idx} number={d.codePro} quantity={d.qte} />))}
 
                 </div>
-                <div class="pagination">
+                <div className="pagination">
                     <div className="nume">
                         <span onClick={() => {
                             if (num > 1) {

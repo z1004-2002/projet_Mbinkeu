@@ -54,24 +54,24 @@ export default function CaissiereCategorie() {
       <Header />
       <main>
         <Nav caiss={id} />
-        <div class="sam">
+        <div className="sam">
           <div>
             <span className='chemin'>Acceuil</span>
             <span className='chemin'>Categorie</span>
           </div>
-          <div class="toutcat"><span>Toutes les catégories</span></div>
+          <div className="toutcat"><span>Toutes les catégories</span></div>
         </div>
         <div className='searchs'>
-          <containt>
-            <button class="imprim">Catalogue</button>
-            <button class="refresh">Rafraichir</button>
-          </containt>
+          <div>
+            <button className="imprim">Catalogue</button>
+            <button className="refresh">Rafraichir</button>
+          </div>
           <div className="formu">
             <input type="text" id="code" maxLength={7} placeholder="Nom Categorie" />
-            <button class="search"><img alt='test' class="loupe" src={search} /></button>
+            <button className="search"><img alt='test' className="loupe" src={search} /></button>
           </div>
         </div>
-        <div class="pBox">
+        <div className="pBox">
 
           {data.map((d, idx) => (<NavLink key={idx} to={"/caissiere/" + id + "/produit/" + d.idCat + "/1"}>
             <BoxCat key={idx} idCat={d.idCat} nomCat={d.nomCat} />
@@ -79,7 +79,7 @@ export default function CaissiereCategorie() {
           ))}
 
         </div>
-        <div class="pagination">
+        <div className="pagination">
           <div className="nume">
             <span onClick={() => {
               if (num > 1) {
