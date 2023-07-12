@@ -109,6 +109,12 @@
     width: 100%;
     border-collapse: collapse;
 }
+.facturation main .body .bottom table tr:hover{
+    background: #a4e2cb;
+}
+    .facturation main .body .bottom table tr{
+    cursor:pointer;
+}
 .facturation main .body .bottom table th{
     background: #232c3b;
     color: white;

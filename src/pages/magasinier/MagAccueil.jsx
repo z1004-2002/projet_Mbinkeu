@@ -1,15 +1,17 @@
 import React from 'react'
+import {useParams} from 'react-router-dom'
 import "./../../styles/produit.css"
 import "./../../styles/index.css"
 import Header from '../../components/Header'
 import Nav from '../../components/NavMag'
 
 export default function MagAccueil() {
+  const {id} = useParams()
   return (
     <div className='body page maga'>
-      <Header name={'Abel'} />
+      <Header/>
       <main>
-        <Nav mag="116" />
+        <Nav mag={id} />
         <div className="content">
           <span>
             Dashboard Magasinier

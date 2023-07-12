@@ -16,8 +16,8 @@ export default function CaissiereFacturation() {
   const [facture, setFacture] = useState({
     remise: 0,
     montant: 0,
-    tel: "string",
-    typeFac: "string",
+    tel: "",
+    typeFac: "",
     idCaissiere: 0,
     capital: 0,
     tva: 0,
@@ -33,21 +33,23 @@ export default function CaissiereFacturation() {
     prix: 0,
     qte: 1,
   })
-  const [net, setNet] = useState("ND")
-  const [total, setTotal] = useState("ND")
-  const [relicat, setRelicat] = useState("ND")
+  const [net, setNet] = useState(0)
+  const [total, setTotal] = useState(0)
+  const [relicat, setRelicat] = useState(0)
+  const [donne, setDonne] = useState(0)
 
   const calcul = () => {
     let tot = 0
-    console.log(produits);
     for (let i = 0; i < produits.length; i++) {
       tot = tot + parseInt(produits[i].qte) * parseInt(produits[i].prix)
     }
     setTotal(tot)
+    let a = total - facture.remise * total / 100
+    setNet(a)
   }
 
-  const test = () => {
-    
+  const test = (item) => {
+    console.log(item)
   }
   const chargeCode = () => {
     if (code.length === 7) {
@@ -124,8 +126,12 @@ export default function CaissiereFacturation() {
 
 
   useEffect(() => {
-    console.log(id);
-  }, [id, produits, produit])
+    setRelicat(parseInt(donne) - parseInt(net))
+    let te = produits
+    setProduits(te)
+    calcul()
+    chargeCode()
+  }, [id, produits, donne, total, facture.remise, code,qte,net])
 
   return (
     <div className='body page facturation'>
@@ -138,7 +144,9 @@ export default function CaissiereFacturation() {
               <span>
                 <PhoneIcon />
               </span>
-              <input type="text" placeholder='Téléphone Client' />
+              <input type="text" value={facture.tel}
+               onChange={(e)=>{setFacture({...facture,tel:e.target.value})}}
+              placeholder='Téléphone Client' />
             </div>
             <div className="textfield0">
               Mode de Payement:
@@ -187,7 +195,11 @@ export default function CaissiereFacturation() {
             <div className="total">Total (Fcfa): <span className='green'>{total}</span></div>
             <div className="net">Net A Payer (Fcfa): <span className='green'>{net}</span></div>
             <div className="reliq">
-              <input type="text" name="reliq" id="reliq" />
+              <input type="text" name="reliq" id="reliq"
+                onChange={(e) => {
+                  setDonne(e.target.value)
+                }}
+                value={donne} />
               <span>
                 Reliquat : <span className='green'>{relicat}</span>
               </span>
@@ -205,7 +217,7 @@ export default function CaissiereFacturation() {
               </thead>
               <tbody>
                 {produits.map((prod, idx) => {
-                  return <tr key={idx}>
+                  return <tr key={idx} onClick={()=>test(prod)}>
                     <td>{separateur(prod.codePro)} </td>
                     <td>{prod.prix} FCFA</td>
                     <td>{prod.qte}</td>

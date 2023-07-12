@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams,NavLink } from 'react-router-dom'
 import "./../../styles/produit.css"
 import Header from '../../components/Header'
 import Nav from '../../components/NavMag'
@@ -8,12 +8,16 @@ import search from "./../../assets/img/search.png"
 
 export default function MagProduit() {
 
-  const { id, num } = useParams()
+    const { id, num } = useParams()
     const [pages, setPages] = useState(1)
     const [data, setData] = useState([])
+    const [q, setQ] = useState(1)
     const navig = useNavigate()
 
     useEffect(() => {
+        let a = num - 1
+        let r = a % 5
+        setQ((a - r) / 5)
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
@@ -24,60 +28,56 @@ export default function MagProduit() {
             .then(result => setPages(parseInt(result / 8) + 1))
             .catch(error => console.log('error', error));
 
-        fetch("http://localhost:4500/produit", requestOptions)
+        fetch("http://localhost:4500/produit/pagination/" + a + "/8", requestOptions)
             .then(response => response.text())
-            .then(result => {
-                let a = JSON.parse(result)
-                let e = []
-                for (let i = (num - 1) * 8; i < num * 8; i++) {
-                    if (i < a.length) {
-                        e.push(a[i])
-                    }
-                }
-                setData(e)
-            })
+            .then(result => setData(JSON.parse(result).response))
             .catch(error => console.log('error', error));
+
     }, [num])
 
 
-  return (
-    <div className='body page'>
-            <Header name={'Abel'} />
+    return (
+        <div className='body page'>
+            <Header />
             <main>
-                <Nav mag="116" />
-                <div class="sam">
+                <Nav mag={id} />
+                <div className="sam">
                     <div>
                         <span className='chemin'>Acceuil</span>
                         <span className='chemin'>Produits</span>
                     </div>
-                    <div class="toutcat"><span>Toutes les catégories</span></div>
+                    <div className="toutcat"><span>Toutes les catégories</span></div>
                 </div>
                 <div className='searchs'>
-                    <containt>
-                        <button class="imprim">Imprimer</button>
-                        <button class="imprim">Imprimer pub</button>
-                        <button class="refresh">Rafraichir</button>
-                    </containt>
+                    <div>
+                        <button className="imprim">Imprimer</button>
+                        <button className="imprim">Imprimer pub</button>
+                        <button className="refresh">Rafraichir</button>
+                    </div>
                     <div className="formu">
                         <input type="text" id="code" maxLength={7} placeholder="Qte" />
                         <input type="text" id="code" maxLength={7} placeholder="Code Fournisseur" />
                         <input type="text" id="code" maxLength={7} placeholder="Code du produit" />
-                        <button class="search"><img class="loupe" src={search} /></button>
+                        <button className="search"><img className="loupe" alt='te' src={search} /></button>
                     </div>
                 </div>
-                <div class="pBox">
+                <div className="pBox">
 
                     {data.map((d, idx) => (<Box key={idx} number={d.codePro} quantity={d.qte} />))}
 
                 </div>
-                <div class="pagination">
+                <div className="pagination">
                     <div className="nume">
                         <span onClick={() => {
                             if (num > 1) {
                                 navig("/magasinier/" + id + "/produit/" + (num - 1))
                             }
                         }} href="#">&laquo;</span>
-                        <span class="active" href="#">{num}</span>
+                        {5*q+1<=pages && <NavLink to={`/magasinier/${id}/produit/${5*q+1}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+1}</NavLink>}
+                        {5*q+2<=pages && <NavLink to={`/magasinier/${id}/produit/${5*q+2}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+2}</NavLink>}
+                        {5*q+3<=pages && <NavLink to={`/magasinier/${id}/produit/${5*q+3}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+3}</NavLink>}
+                        {5*q+4<=pages && <NavLink to={`/magasinier/${id}/produit/${5*q+4}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+4}</NavLink>}
+                        {5*q+5<=pages && <NavLink to={`/magasinier/${id}/produit/${5*q+5}`} className={({ isActive }) => isActive ? "active" : ""}>{5*q+5}</NavLink>}
                         <span onClick={() => {
                             if (num < pages) {
                                 let a = num - 1 + 2
@@ -91,5 +91,5 @@ export default function MagProduit() {
                 </div>
             </main>
         </div>
-  )
+    )
 }

@@ -9,12 +9,12 @@ export default function MagStock() {
   const { id } = useParams()
   useEffect(() => {
     console.log(id);
-  }, [])
+  }, [id])
   return (
     <div className='body page'>
-      <Header name={'Abel'} />
+      <Header/>
       <main>
-        <Nav mag="116" />
+        <Nav mag={id} />
       </main>
     </div>
   )

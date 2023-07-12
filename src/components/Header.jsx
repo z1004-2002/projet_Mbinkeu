@@ -16,7 +16,7 @@ export default function Header() {
       redirect: 'follow'
     };
     
-    fetch("http://localhost:4500/gestionnaire/115", requestOptions)
+    fetch("http://localhost:4500/gestionnaire/"+id, requestOptions)
       .then(response => response.text())
       .then(result => setUser(JSON.parse(result)))
       .catch(error => console.log('error', error));

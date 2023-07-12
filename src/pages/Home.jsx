@@ -35,7 +35,7 @@ export default function Home() {
                         }else{
                             if (b.typeGest===0) {
                                 navig(`/caissiere/${b.idGest}/facturation`)
-                            } else if(b.typeGest===3) {
+                            } else if(b.typeGest===1) {
                                 navig(`/magasinier/${b.idGest}`)
                             }
                         }

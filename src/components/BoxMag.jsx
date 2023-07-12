@@ -19,7 +19,7 @@ export default function Box({ number, quantity }) {
         if (a.length === 0) {
           setName(box)
         } else {
-          setName('https://boutiquebambino.shop/eshop/productImages/'+number+'/' + a[0].lienPhoto)
+          setName('http://boutiquebambino.shop/eshop/productImages/'+number+'/'+a[0].lienPhoto)
         }
       })
       .catch(error => console.log('error', error));

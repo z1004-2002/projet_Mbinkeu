@@ -18,7 +18,7 @@ export default function MagCatPro() {
   const { id, idCat, num } = useParams()
   const [pages, setPages] = useState(1)
   const [nom, setNom] = useState("")
-  const [modal, setModal] = useState(true)
+  const [modal, setModal] = useState(false)
 
   const [data, setData] = useState([])
   const navig = useNavigate()
@@ -56,7 +56,7 @@ export default function MagCatPro() {
 
 
 
-  }, [num])
+  }, [num,idCat])
 
 
   return (

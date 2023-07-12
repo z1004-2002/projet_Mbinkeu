@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import {  useNavigate, useParams,NavLink } from 'react-router-dom'
 import "./../../styles/produit.css"
 import Header from '../../components/Header'
 import Nav from '../../components/NavMag'
@@ -27,7 +27,6 @@ export default function MagCategorie() {
         setPages(parseInt(result / 8) + 1)
       })
       .catch(error => console.log('error', error));
-    console.log(id);
 
     fetch("http://localhost:4500/categorie", requestOptions)
       .then(response => response.text())
@@ -43,15 +42,14 @@ export default function MagCategorie() {
       })
       .catch(error => console.log('error', error));
 
-
   }, [num])
 
 
   return (
     <div className='body page'>
-      <Header name={'Abel'} />
+      <Header />
       <main>
-        <Nav mag="116" />
+        <Nav mag={id} />
         <div class="sam">
           <div>
             <span className='chemin'>Acceuil</span>
@@ -67,13 +65,14 @@ export default function MagCategorie() {
           </containt>
           <div className="formu">
             <input type="text" id="code" maxLength={7} placeholder="Nom Categorie" />
-            <button class="search"><img class="loupe" src={search} /></button>
+            <button class="search"><img class="loupe" alt='te' src={search} /></button>
           </div>
         </div>
         <div class="pBox">
-
           {data.map((d, idx) => (
-            <BoxCat key={idx} idCat={d.idCat} nomCat={d.nomCat} />
+            <NavLink key={idx} to={"/magasinier/"+id+"/produit/"+d.idCat+"/1"}>
+              <BoxCat  idCat={d.idCat} nomCat={d.nomCat} />
+            </NavLink>
           ))}
 
         </div>
