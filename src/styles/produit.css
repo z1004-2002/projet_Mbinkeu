@@ -165,6 +165,7 @@
     display: flex;
     justify-content: space-between;
     vertical-align: bottom;
+    cursor:pointer;
 }
 
 .page .pimage {

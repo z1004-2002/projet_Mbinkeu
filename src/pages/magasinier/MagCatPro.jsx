@@ -4,13 +4,9 @@ import Header from '../../components/Header'
 import Nav from '../../components/NavMag'
 import Box from '../../components/BoxMag'
 import shop from '../../assets/img/box.jpeg'
-import { Add, Person } from '@mui/icons-material'
+import { Add, Person,BorderColorSharp,Storage,Clear,CalendarMonth } from '@mui/icons-material'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import search from "./../../assets/img/search.png"
-import BorderColorSharpIcon from '@mui/icons-material/BorderColorSharp';
-import StorageIcon from '@mui/icons-material/Storage';
-import ClearIcon from '@mui/icons-material/Clear';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 
 export default function MagCatPro() {
@@ -19,12 +15,14 @@ export default function MagCatPro() {
   const [pages, setPages] = useState(1)
   const [nom, setNom] = useState("")
   const [modal, setModal] = useState(false)
-
+  const [q, setQ] = useState(1)
   const [data, setData] = useState([])
   const navig = useNavigate()
 
   useEffect(() => {
-
+    let a = num - 1
+    let r = a % 5
+    setQ((a - r) / 5)
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
@@ -56,64 +54,64 @@ export default function MagCatPro() {
 
 
 
-  }, [num,idCat])
+  }, [num, idCat])
 
 
   return (
     <div className='body page'>
       {modal && <div className="modal">
         <div className="contenu_modal">
-          <ClearIcon onClick={()=>setModal(false)} className='close'/>
+          <Clear onClick={() => setModal(false)} className='close' />
           <div className="tet">
-              <Person className='pers'/>
-              <span>Ajouter Produit</span>
+            <Person className='pers' />
+            <span>Ajouter Produit</span>
           </div>
           <div className="corps">
-              <div className="form">
-                <div className="text-field">
-                  <BorderColorSharpIcon className='iform'/>
-                  <input type="text" className='input' placeholder='Nom du produit'/>
-                </div>
-                <div className="text-field">
-                  <BorderColorSharpIcon className='iform'/>
-                  <input type="text" className='input'  placeholder="Code du fournisseur"/>
-                </div>
-                <div className="text-field">
-                  <StorageIcon className='iform'/>
-                  <input type="text" className='input'  placeholder="Prix"/>
-                </div>
-                <div className="text-field">
-                  <CalendarMonthIcon className='iform'/>
-                  <input type="text" className='input'  placeholder="Tranche d'age"/>
-                </div>
+            <div className="form">
+              <div className="text-field">
+                <BorderColorSharp className='iform' />
+                <input type="text" className='input' placeholder='Nom du produit' />
               </div>
-              <div className="images">
-                  <span onClick={()=>{
-                    document.getElementById("img").click()
-                  }}>Parcourir</span>
-                  <input type="file" name="img" id="img" accept='image'/>
-                  <div className="image">
-                    <img src={shop} alt="test" />
-                    <img src={shop} alt="test" />
-                    <img src={shop} alt="test" />
-                    <img src={shop} alt="test" />
-                    <img src={shop} alt="test" />
-                    <img src={shop} alt="test" />
-                    <img src={shop} alt="test" />
-                  </div>
+              <div className="text-field">
+                <BorderColorSharp className='iform' />
+                <input type="text" className='input' placeholder="Code du fournisseur" />
               </div>
-              <div className="btns">
-                <span className="ajouter" onClick={()=>setModal(false)}>Annuler</span>
-                <span className="ajouter" >Ajouter</span>
+              <div className="text-field">
+                <Storage className='iform' />
+                <input type="text" className='input' placeholder="Prix" />
               </div>
+              <div className="text-field">
+                <CalendarMonth className='iform' />
+                <input type="text" className='input' placeholder="Tranche d'age" />
+              </div>
+            </div>
+            <div className="images">
+              <span onClick={() => {
+                document.getElementById("img").click()
+              }}>Parcourir</span>
+              <input type="file" name="img" id="img" accept='image' />
+              <div className="image">
+                <img src={shop} alt="test" />
+                <img src={shop} alt="test" />
+                <img src={shop} alt="test" />
+                <img src={shop} alt="test" />
+                <img src={shop} alt="test" />
+                <img src={shop} alt="test" />
+                <img src={shop} alt="test" />
+              </div>
+            </div>
+            <div className="btns">
+              <span className="ajouter" onClick={() => setModal(false)}>Annuler</span>
+              <span className="ajouter" >Ajouter</span>
+            </div>
           </div>
         </div>
       </div>}
 
-      <Header name={'Abel'} />
+      <Header />
       <main>
-        <Nav mag="116" />
-        <div class="sam">
+        <Nav mag={id} />
+        <div className="sam">
           <div>
             <span className='chemin'>Acceuil</span>
             <span className='chemin'>
@@ -123,12 +121,12 @@ export default function MagCatPro() {
             </span>
             <span className='chemin'>Produits</span>
           </div>
-          <div class="toutcat"><span>Catégories {nom}</span></div>
+          <div className="toutcat"><span>Catégories {nom}</span></div>
         </div>
         <div className='searchs'>
           <containt>
-            <button class="imprim">Imprimer</button>
-            <button class="refresh">Rafraichir</button>
+            <button className="imprim">Imprimer</button>
+            <button className="refresh">Rafraichir</button>
             <span className='creer' onClick={() => {
               setModal(true)
             }}><Add className='add' />Créer Produit</span>
@@ -137,22 +135,26 @@ export default function MagCatPro() {
             <input type="text" id="code" maxLength={7} placeholder="Qte" />
             <input type="text" id="code" maxLength={7} placeholder="Code Fournisseur" />
             <input type="text" id="code" maxLength={7} placeholder="Code du produit" />
-            <button class="search"><img class="loupe" src={search} /></button>
+            <button className="search"><img className="loupe" alt="te" src={search} /></button>
           </div>
         </div>
-        <div class="pBox">
+        <div className="pBox">
 
           {data.map((d, idx) => (<Box key={idx} number={d.codePro} quantity={d.qte} />))}
 
         </div>
-        <div class="pagination">
+        <div className="pagination">
           <div className="nume">
             <span onClick={() => {
               if (num > 1) {
                 navig("/magasinier/" + id + "/produit/" + idCat + "/" + (num - 1))
               }
             }} href="#">&laquo;</span>
-            <span class="active" href="#">{num}</span>
+            {5 * q + 1 <= pages && <NavLink to={`/magasinier/${id}/produit/${idCat}/${5 * q + 1}`} className={({ isActive }) => isActive ? "active" : ""}>{5 * q + 1}</NavLink>}
+            {5 * q + 2 <= pages && <NavLink to={`/magasinier/${id}/produit/${idCat}/${5 * q + 2}`} className={({ isActive }) => isActive ? "active" : ""}>{5 * q + 2}</NavLink>}
+            {5 * q + 3 <= pages && <NavLink to={`/magasinier/${id}/produit/${idCat}/${5 * q + 3}`} className={({ isActive }) => isActive ? "active" : ""}>{5 * q + 3}</NavLink>}
+            {5 * q + 4 <= pages && <NavLink to={`/magasinier/${id}/produit/${idCat}/${5 * q + 4}`} className={({ isActive }) => isActive ? "active" : ""}>{5 * q + 4}</NavLink>}
+            {5 * q + 5 <= pages && <NavLink to={`/magasinier/${id}/produit/${idCat}/${5 * q + 5}`} className={({ isActive }) => isActive ? "active" : ""}>{5 * q + 5}</NavLink>}
             <span onClick={() => {
               if (num < pages) {
                 let a = num - 1 + 2

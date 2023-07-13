@@ -6,6 +6,7 @@ export default function Box({ number, quantity }) {
   const [code, SetCode] = useState('')
   const [name, setName] = useState('')
 
+
   useEffect(() => {
     var requestOptions = {
       method: 'GET',

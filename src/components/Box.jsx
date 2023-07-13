@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import litsearch from './../assets/img/litsearch.png'
 import box from './../assets/img/box.jpeg'
 
-export default function Box({number, quantity}) {
+export default function Box({number, quantity, handle}) {
   const [code,SetCode] = useState('')
-  const [name,setName] = useState('')
+  const [name,setName] = useState('') 
+
   useEffect(()=>{
     var requestOptions = {
       method: 'GET',
@@ -26,14 +27,15 @@ export default function Box({number, quantity}) {
   },[number]) 
   return (
     <div class="ppBox">
-        <div className="pop_up">
-          
-        </div>
+        
         <div class="num"><span>{
             code[0]+code[1]+code[2]+
             '-'+code[3]+code[4]+code[5]}</span></div>
         <div class="pimage"><img src={name} alt='t'/></div>
-        <div class="qte"><span>{quantity}</span><img alt='t' class="ploupe" src={litsearch}/></div>
+        <div class="qte">
+          <span>{quantity}</span>
+          <img alt='t' onClick={()=>handle()} class="ploupe" src={litsearch}/>
+        </div>
     </div>
   )
 }
