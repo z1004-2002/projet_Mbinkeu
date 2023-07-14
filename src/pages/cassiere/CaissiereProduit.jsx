@@ -4,16 +4,67 @@ import "./../../styles/produit.css"
 import Header from '../../components/Header'
 import Nav from '../../components/NavCaissiere'
 import Box from '../../components/Box'
+import box from '../../assets/img/box.jpeg'
 import search from "./../../assets/img/search.png"
-import { Clear, Person,BorderColorSharp, } from '@mui/icons-material'
+import { Clear, Person } from '@mui/icons-material'
 
 export default function Produit() {
     const { id, num } = useParams()
     const [pages, setPages] = useState(1)
     const [q, setQ] = useState(1)
     const [data, setData] = useState([])
+    const [modal, setModal] = useState(true)
+    const [produit, setProduit] = useState({
+        codePro: 977665,
+        nomPro: "string",
+        prix: 0,
+        qte: 0,
+        description: "string",
+        codeArrivage: "string",
+        actif: 0,
+        categorie: {
+            idCat: 0,
+            nomCat: "string"
+        },
+        dateInsertion: "2023-07-14T13:43:26.313Z",
+        prixAchat: 0,
+        pourcentage: 0,
+        promo: 0,
+        size1: 0,
+        size2: 0,
+        typeSize: 0
+    })
+    let [photo, setPhoto] = useState([box])
     const navig = useNavigate()
-    const [modal, setModal] = useState(false)
+
+    const codeToString = (code) => {
+        let chaine = code.toString()
+        let a = ''
+        if (chaine.length == 6) {
+            a = chaine[0] + "" + chaine[1] + "" + chaine[2] + "-" + chaine[3] + "" + chaine[4] + "" + chaine[5]
+        }
+        return a
+    }
+
+    const getPhoto = (code) => {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        
+        fetch("http://localhost:4500/photo/" + code, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+                let images = []
+                let a = JSON.parse(result)
+                console.log(a);
+                for (let i = 0; i < a.length; i++) {
+                    images.push('http://boutiquebambino.shop/eshop/productImages/' + code + '/' + a[i].lienPhoto)
+                }
+                setPhoto(images)
+            })
+            .catch(error => console.log('error', error));
+    }
 
     useEffect(() => {
         let a = num - 1
@@ -45,29 +96,55 @@ export default function Produit() {
                     <Clear onClick={() => setModal(false)} className='close' />
                     <div className="tet">
                         <Person className='pers' />
-                        <span>Ajouter Produit</span>
+                        <span>Info Produit</span>
                     </div>
                     <div className="corps">
-            <div className="form">
-              <div className="text-field">
-                <BorderColorSharp className='iform' />
-                <input type="text" className='input' placeholder='Nom du produit' />
-              </div>
-            </div>
-            <div className="images">
-              <span onClick={() => {
-                document.getElementById("img").click()
-              }}>Parcourir</span>
-              <input type="file" name="img" id="img" accept='image' />
-              <div className="image">
-                
-              </div>
-            </div>
-            <div className="btns">
-              <span className="ajouter" onClick={() => setModal(false)}>Annuler</span>
-              <span className="ajouter" >Ajouter</span>
-            </div>
-          </div>
+                        <div className="information">
+
+                            <div className="text-fie">
+                                <span>code pro : </span>
+                                <span> {codeToString(produit.codePro)} </span>
+                            </div>
+                            <div className="text-fie">
+                                <span>Nom produit : </span>
+                                <span>{' ' + produit.nomPro}</span>
+                            </div>
+                            <div className="text-fie">
+                                <span>prix : </span>
+                                <span>{' ' + produit.prix}</span>
+                            </div>
+                            <div className="text-fie">
+                                <span>Quantité : </span>
+                                <span>{' ' + produit.qte}</span>
+                            </div>
+                            <div className="text-fie">
+                                <span>Code d'arrivage : </span>
+                                <span>{' ' + produit.codeArrivage}</span>
+                            </div>
+                            <div className="text-fie">
+                                <span>Pourcentage : </span>
+                                <span>{' ' + produit.pourcentage + ' % '}</span>
+                            </div>
+                            <div className="text-fie">
+                                <span>promo : </span>
+                                <span>{produit.promo}</span>
+                            </div>
+                            <div className="text-fie">
+                                <span>Size : </span>
+                                <span>{produit.size1 + '-' + produit.size2 + (produit.typeSize === 0 ? " Mois " : (produit.typeSize === 1 ? " Ans " : ""))}</span>
+                            </div>
+                        </div>
+                        <div className="descript">
+                            <p>Description :</p>
+                            <p>{produit.description}</p>
+                        </div>
+
+                        <div className="images">
+                            <div className="image">
+                                {photo.map((im,idx)=> <img alt='te' key={idx} src={im}/>)}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>}
             <Header />
@@ -96,7 +173,9 @@ export default function Produit() {
 
                     {data.map((d, idx) => (<Box key={idx} number={d.codePro} quantity={d.qte}
                         handle={() => {
+                            setProduit(d)
                             setModal(true)
+                            getPhoto(d.codePro)
                         }} />))}
 
                 </div>

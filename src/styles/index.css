@@ -1,25 +1,30 @@
-*{
+* {
     padding: 0;
     margin: 0;
     font-family: sans-serif;
     box-sizing: border-box;
 }
-.ppBox{
+
+.ppBox {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.pimage img{
+
+.pimage img {
     width: 100%;
 }
-.formu{
+
+.formu {
     margin-right: 20px;
 }
-a{
+
+a {
     text-decoration: none;
     color: white;
 }
-.maga .content{
+
+.maga .content {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,14 +33,16 @@ a{
     font-size: 40px;
     color: #344b42;
 }
-.maga main{
+
+.maga main {
     height: 600px;
     width: 100%;
 }
-.modal{
+
+.modal {
     position: fixed;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     z-index: 10;
     width: 100vw;
     height: 100vh;
@@ -45,21 +52,24 @@ a{
     background: rgba(0, 0, 0, 0.185);
     backdrop-filter: blur(1px);
 }
-.modal .contenu_modal{
+
+.modal .contenu_modal {
     min-height: 670px;
     min-width: 630px;
     background-color: #232c3b;
     border-radius: 5px;
     position: relative;
 }
-.modal .content_modal{
+
+.modal .content_modal {
     min-height: 300px;
     min-width: 400px;
     background-color: #232c3b;
     border-radius: 5px;
     position: relative;
 }
-.modal .close{
+
+.modal .close {
     position: absolute;
     color: #56d3a5;
     font-weight: 900;
@@ -69,8 +79,9 @@ a{
     cursor: pointer;
     border: 1px solid #56d3a5;
 }
+
 .modal .content_modal .tet,
-    .modal .contenu_modal .tet{
+.modal .contenu_modal .tet {
     height: 110px;
     width: 100%;
     display: flex;
@@ -78,59 +89,95 @@ a{
     align-items: center;
     justify-content: center;
 }
+
 .modal .content_modal .tet .pers,
-.modal .contenu_modal .tet .pers
-{
+.modal .contenu_modal .tet .pers {
     font-size: 45px;
     color: #56d3a5;
 }
+
 .modal .contenu_modal .tet span,
-.modal .content_modal .tet span
-{
+.modal .content_modal .tet span {
     color: #fff;
     font-weight: 700;
 }
-.modal .contenu_modal .corps{
+
+.modal .contenu_modal .corps {
     width: 100%;
     height: 510px;
     background-color: #fff;
 }
-.modal .content_modal .corps
-{
+
+.modal .content_modal .corps {
     width: 100%;
     height: 140px;
     background-color: #fff;
-    padding:10px 0 0 10px;
+    padding: 10px 0 0 10px;
 }
-.modal .contenu_modal .corps .form{
+
+.modal .contenu_modal .corps .form {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 100px 100px;
     padding: 20px;
 }
 
-.modal .contenu_modal .corps .form .input{
+.modal .contenu_modal .corps .information {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 40px 40px 40px 40px;
+    padding: 20px;
+}
+
+.modal .contenu_modal .corps .descript {
+    padding: 0 25px;
+}
+
+
+    .modal .contenu_modal .corps .descript p:nth-child(2) {
+    margin-top: 10px;
+    padding-left: 10px;
+}
+.modal .contenu_modal .corps .descript p:nth-child(1),
+.modal .contenu_modal .corps .information .text-fie span:nth-child(1){
+    color: #232c3b;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.modal .contenu_modal .corps .information .text-fie {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    font-size: 15px;
+}
+
+.modal .contenu_modal .corps .form .input {
     width: 100%;
     border-bottom: 1px solid silver;
     font-size: 19px;
 }
-.modal .content_modal .corps .form .input
-{
+
+.modal .content_modal .corps .form .input {
     width: 80%;
     border-bottom: 1px solid silver;
     font-size: 19px;
 }
+
 .modal .contenu_modal .corps .form .iform,
-.modal .content_modal .corps .form .iform
-{
+.modal .content_modal .corps .form .iform {
     color: #232c3b;
     font-size: 40px;
 }
-.modal .contenu_modal .corps .images{
+
+.modal .contenu_modal .corps .images {
     padding: 20px;
     width: 100%;
-}  
-.modal .contenu_modal .corps .images span{
+}
+
+.modal .contenu_modal .corps .images span {
     padding: 7px 20px;
     background: #1b308b;
     border-radius: 4px;
@@ -138,10 +185,12 @@ a{
     font-weight: 700;
     cursor: pointer;
 }
-.modal .contenu_modal .corps .images input{
+
+.modal .contenu_modal .corps .images input {
     display: none;
 }
-.modal .contenu_modal .corps .images .image{
+
+.modal .contenu_modal .corps .images .image {
     width: 610px;
     border: 1px solid silver;
     height: 160px;
@@ -153,13 +202,14 @@ a{
     overflow: scroll;
     padding: 5px;
 }
-.modal .contenu_modal .corps .images .image img{
+
+.modal .contenu_modal .corps .images .image img {
     width: 150px;
     height: 130px;
     margin-left: 3px;
 }
 
-.modal .contenu_modal .corps .btns{
+.modal .contenu_modal .corps .btns {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -167,17 +217,18 @@ a{
     justify-content: flex-end;
     padding: 0px 20px;
 }
-.modal .content_modal .corps .btns
-{
+
+.modal .content_modal .corps .btns {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-end;
     padding: 0px 20px;
-    margin-top:20px;
+    margin-top: 20px;
 }
-.modal .contenu_modal .corps .btns span{
+
+.modal .contenu_modal .corps .btns span {
     background: #1b308b;
     padding: 9px 30px;
     margin: 0 5px;
@@ -185,10 +236,10 @@ a{
     font-weight: bold;
     border-radius: 4px;
     cursor: pointer;
-    margin-top:3px;
+    margin-top: 3px;
 }
-.modal .content_modal .corps .btns span
-{
+
+.modal .content_modal .corps .btns span {
     background: #1b308b;
     padding: 9px 30px;
     margin: 0 5px;
@@ -196,5 +247,5 @@ a{
     font-weight: bold;
     border-radius: 4px;
     cursor: pointer;
-    margin-top:3px;
+    margin-top: 3px;
 }
