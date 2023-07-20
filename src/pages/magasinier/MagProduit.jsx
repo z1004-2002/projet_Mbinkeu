@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams,NavLink } from 'react-router-dom'
 import "./../../styles/produit.css"
 import Header from '../../components/Header'
+import box from '../../assets/img/box.jpeg'
 import Nav from '../../components/NavMag'
 import Box from '../../components/BoxMag'
 import search from "./../../assets/img/search.png"
+import ShowModal from '../../components/ShowModal'
 
 export default function MagProduit() {
 
@@ -12,7 +14,52 @@ export default function MagProduit() {
     const [pages, setPages] = useState(1)
     const [data, setData] = useState([])
     const [q, setQ] = useState(1)
+    const [modal, setModal] = useState(false)
+    const [produit, setProduit] = useState({
+        codePro: 977665,
+        nomPro: "string",
+        prix: 0,
+        qte: 0,
+        description: "string",
+        codeArrivage: "string",
+        actif: 0,
+        categorie: {
+            idCat: 0,
+            nomCat: "string"
+        },
+        dateInsertion: "2023-07-14T13:43:26.313Z",
+        prixAchat: 0,
+        pourcentage: 0,
+        promo: 0,
+        size1: 0,
+        size2: 0,
+        typeSize: 0
+    })
+    let [photo, setPhoto] = useState([box])
     const navig = useNavigate()
+
+
+
+    const getPhoto = (code) => {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        
+        fetch("http://localhost:4500/photo/" + code, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+                let images = []
+                let a = JSON.parse(result)
+                console.log(a);
+                for (let i = 0; i < a.length; i++) {
+                    images.push('http://boutiquebambino.shop/eshop/productImages/' + code + '/' + a[i].lienPhoto)
+                }
+                setPhoto(images)
+            })
+            .catch(error => console.log('error', error));
+    }
+
 
     useEffect(() => {
         let a = num - 1
@@ -38,6 +85,7 @@ export default function MagProduit() {
 
     return (
         <div className='body page'>
+            {modal && <ShowModal produit={produit} photo={photo} close={()=>setModal(false)}/>}
             <Header />
             <main>
                 <Nav mag={id} />
@@ -63,7 +111,12 @@ export default function MagProduit() {
                 </div>
                 <div className="pBox">
 
-                    {data.map((d, idx) => (<Box key={idx} number={d.codePro} quantity={d.qte} />))}
+                    {data.map((d, idx) => (<Box key={idx} number={d.codePro} quantity={d.qte}
+                    handle={() => {
+                        setProduit(d)
+                        setModal(true)
+                        getPhoto(d.codePro)
+                    }} />))}
 
                 </div>
                 <div className="pagination">

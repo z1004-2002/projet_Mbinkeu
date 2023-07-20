@@ -27,7 +27,6 @@ export default function Box({number, quantity, handle}) {
   },[number]) 
   return (
     <div class="ppBox">
-        
         <div class="num"><span>{
             code[0]+code[1]+code[2]+
             '-'+code[3]+code[4]+code[5]}</span></div>

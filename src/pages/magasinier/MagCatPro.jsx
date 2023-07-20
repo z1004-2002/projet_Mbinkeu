@@ -4,9 +4,11 @@ import Header from '../../components/Header'
 import Nav from '../../components/NavMag'
 import Box from '../../components/BoxMag'
 import shop from '../../assets/img/box.jpeg'
-import { Add, Person,BorderColorSharp,Storage,Clear,CalendarMonth } from '@mui/icons-material'
+import { Add, Person, BorderColorSharp, Storage, Clear, CalendarMonth } from '@mui/icons-material'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import search from "./../../assets/img/search.png"
+import ShowModal from '../../components/ShowModal'
+import box from '../../assets/img/box.jpeg'
 
 
 export default function MagCatPro() {
@@ -17,7 +19,50 @@ export default function MagCatPro() {
   const [modal, setModal] = useState(false)
   const [q, setQ] = useState(1)
   const [data, setData] = useState([])
+  const [modal0, setModal0] = useState(false)
+
+  const [produit, setProduit] = useState({
+    codePro: 0,
+    nomPro: "string",
+    prix: 0,
+    qte: 0,
+    description: "string",
+    codeArrivage: "string",
+    actif: 0,
+    categorie: {
+      idCat: 0,
+      nomCat: "string"
+    },
+    dateInsertion: "2023-07-20T11:27:43.992Z",
+    prixAchat: 0,
+    pourcentage: 0,
+    promo: 0,
+    size1: 0,
+    size2: 0,
+    typeSize: 0
+  })
+  let [photo, setPhoto] = useState([box])
   const navig = useNavigate()
+
+  const getPhoto = (code) => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:4500/photo/" + code, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        let images = []
+        let a = JSON.parse(result)
+        console.log(a);
+        for (let i = 0; i < a.length; i++) {
+          images.push('http://boutiquebambino.shop/eshop/productImages/' + code + '/' + a[i].lienPhoto)
+        }
+        setPhoto(images)
+      })
+      .catch(error => console.log('error', error));
+  }
 
   useEffect(() => {
     let a = num - 1
@@ -74,16 +119,28 @@ export default function MagCatPro() {
               </div>
               <div className="text-field">
                 <BorderColorSharp className='iform' />
-                <input type="text" className='input' placeholder="Code du fournisseur" />
+                <input type="text" className='input' placeholder="Code Arrivage" />
               </div>
               <div className="text-field">
-                <Storage className='iform' />
-                <input type="text" className='input' placeholder="Prix" />
+                <BorderColorSharp className='iform' />
+                <input type="text" className='input' placeholder="Prix Achat" />
               </div>
               <div className="text-field">
-                <CalendarMonth className='iform' />
-                <input type="text" className='input' placeholder="Tranche d'age" />
+                <BorderColorSharp className='iform' />
+                <input type="text" className='input' placeholder="Prix Vente" />
               </div>
+              <div className="text-field">
+                <BorderColorSharp className='iform' />
+                <input type="text" className='input' placeholder='Type size' />
+              </div>
+              <div className="text-field">
+                <BorderColorSharp className='iform' />
+                <input type="text" className='input' placeholder='Size 1' />
+              </div>
+            </div>
+            <div className="description">
+              <span>Description : </span>
+              <textarea rows="3" cols="50" name="maDescription" id="description"></textarea>
             </div>
             <div className="images">
               <span onClick={() => {
@@ -91,7 +148,6 @@ export default function MagCatPro() {
               }}>Parcourir</span>
               <input type="file" name="img" id="img" accept='image' />
               <div className="image">
-                <img src={shop} alt="test" />
                 <img src={shop} alt="test" />
                 <img src={shop} alt="test" />
                 <img src={shop} alt="test" />
@@ -107,6 +163,7 @@ export default function MagCatPro() {
           </div>
         </div>
       </div>}
+      {modal0 && <ShowModal produit={produit} photo={photo} close={() => setModal0(false)} />}
 
       <Header />
       <main>
@@ -140,7 +197,12 @@ export default function MagCatPro() {
         </div>
         <div className="pBox">
 
-          {data.map((d, idx) => (<Box key={idx} number={d.codePro} quantity={d.qte} />))}
+          {data.map((d, idx) => (<Box key={idx} number={d.codePro} quantity={d.qte}
+            handle={() => {
+              setProduit(d)
+              setModal0(true)
+              getPhoto(d.codePro)
+            }} />))}
 
         </div>
         <div className="pagination">

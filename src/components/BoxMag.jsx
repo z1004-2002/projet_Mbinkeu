@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import litsearch from './../assets/img/litsearch.png'
 import box from './../assets/img/box.jpeg'
 
-export default function Box({ number, quantity }) {
+export default function Box({ number, quantity, handle }) {
   const [code, SetCode] = useState('')
   const [name, setName] = useState('')
 
@@ -20,7 +20,7 @@ export default function Box({ number, quantity }) {
         if (a.length === 0) {
           setName(box)
         } else {
-          setName('http://boutiquebambino.shop/eshop/productImages/'+number+'/'+a[0].lienPhoto)
+          setName('http://boutiquebambino.shop/eshop/productImages/' + number + '/' + a[0].lienPhoto)
         }
       })
       .catch(error => console.log('error', error));
@@ -31,9 +31,11 @@ export default function Box({ number, quantity }) {
       <div className="num"><span>{
         code[0] + code[1] + code[2] +
         '-' + code[3] + code[4] + code[5]}</span></div>
-      
-        <div className="pimage"><img alt='e' src={name} /></div>
-      <div className="qte"><span>{quantity}</span><img alt='z' className="ploupe" src={litsearch} /></div>
+      <div className="pimage"><img alt='e' src={name} /></div>
+      <div className="qte">
+        <span>{quantity}</span>
+        <img alt='z' onClick={() => handle()} className="ploupe" src={litsearch} />
+      </div>
     </div>
   )
 }
